@@ -6,7 +6,6 @@ import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import school.cesar.unit.builders.EmailAccountBuilder;
 import school.cesar.unit.builders.EmailBuilder;
 import school.cesar.unit.service.EmailAccount;
 import school.cesar.unit.service.EmailClient;
@@ -27,10 +26,8 @@ public class EmailTest {
 	public void checkingAValidAdress() {
 
 		Assertions.assertTrue(emailClient.isValidAdress(ADRESS_VALID));
-		
-		EmailAccountBuilder.setEmailAccount().setUser("Diego");
 	}
-	
+
 	@Test
 	public void createValidAccount() {
 //		emailAccount.createAccount()
@@ -39,13 +36,12 @@ public class EmailTest {
 //			.addingActualDate("")
 //			.addingAccount();
 	}
-	
+
 	@Test
 	public void creatingNewEmail() {
-		
+
 		List<EmailBuilder> email = Arrays.asList(emailBuilder.setFrom(FROM));
-		
-//		emailClient.sendEmail();
+
 	}
 
 }

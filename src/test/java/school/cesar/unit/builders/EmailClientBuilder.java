@@ -1,8 +1,9 @@
 package school.cesar.unit.builders;
 
-import school.cesar.unit.service.EmailAccount;
 import java.util.Arrays;
-import school.cesar.unit.impl.EmailService;
+
+import school.cesar.unit.interfac.EmailService;
+import school.cesar.unit.service.EmailAccount;
 import school.cesar.unit.service.EmailClient;
 
 public class EmailClientBuilder {

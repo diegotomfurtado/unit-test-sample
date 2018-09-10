@@ -1,14 +1,15 @@
 package school.cesar.unit.service;
 
-import java.util.List;
+import java.util.Collection;
 
 import school.cesar.unit.entidade.Email;
-import school.cesar.unit.impl.EmailService;
+import school.cesar.unit.interfac.EmailService;
 
-public class EmailClient implements EmailService {
+public class EmailClient extends Email implements EmailService {
 
-	private List<EmailAccount> accounts;
+	private Collection<EmailAccount> accounts;
 	private EmailService emailService;
+	Email email = new Email();
 	EmailAccount emailAccount = new EmailAccount();
 
 	public void setEmailService(EmailService emailService) {
@@ -20,45 +21,56 @@ public class EmailClient implements EmailService {
 		boolean returnAdressInformation = false;
 		String[] returnFromValidAdress = validAdress.split("@");
 
-		if (new EmailAccount().checkIfAUserIsAbleToUse(returnFromValidAdress[0]) == true) {
+		if (emailAccount.checkIfAUserIsAbleToUse(returnFromValidAdress[0] == true) {
 
-			if (new EmailAccount().checkIdADomainIsAbleToUse(returnFromValidAdress[1]) == true) {
+			if (emailAccount.checkIdADomainIsAbleToUse(returnFromValidAdress[1]) == true) {
 				return returnAdressInformation = true;
 			}
 
 		}
 		return returnAdressInformation;
-
 	}
 
-	public boolean isValidEmail() {
+	public boolean isValidEmail(String email) {
 
-		return false;
+		boolean validEmail = false;
+		// tá beeem errado
+//		if ((email.getCreationDate() != null && (!email.getTo().isEmpty() || email.getTo() != null)
+//				&& (!email.getFrom().isEmpty() || email.getFrom() != null))) {
+//			email.getTo();
+//		}
+		return validEmail;
 	}
 
 	@Override
-	public List<Email> emailList(EmailAccount account) {
+	public Collection<Email> emailList(EmailAccount account) {
 
-		if (emailAccount.verifyPasswordExpiration("") == true) {
-		
-			for(Email email : account){
-				emailService.emailList(email);
-		    }
-			return emailService;
-		}else {
-			throws 
-		}
+		return null;
 	}
 
 	@Override
 	public boolean sendEmail(Email email) {
 
+//		if (this.isValidEmail() == true) {
+//			emailService.sendEmail(email);
+//			return true;
+//		} else {
+//			throw new RuntimeException("Invalid email to send!");
+//		}
 		return false;
+
 	}
 
 	public boolean createAccount(EmailAccount account) {
 
-//		emailAccount.checkIfAUserIsAbleToUse(user).
+//		account.setUser("");
+//		account.setDomain(emailAccount.domain);
+//
+//		emailAccount.checkIfAUserIsAbleToUse(emailAccount.user);
+//		if (emailAccount.getPasswordLength() > 6) {
+//
+//			emailAccount.setLastPasswordUpdate(LocalDate.now());
+//		}
 		return false;
 	}
 
@@ -67,7 +79,7 @@ public class EmailClient implements EmailService {
 
 	}
 
-	public void setAccounts(List<EmailAccount> asList) {
+	public void setAccounts(Collection<EmailAccount> asList) {
 		// TODO Auto-generated method stub
 
 	}

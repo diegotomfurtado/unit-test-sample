@@ -1,6 +1,6 @@
 package school.cesar.unit.builders;
 
-import java.time.Instant;
+import java.time.LocalDate;
 
 import school.cesar.unit.service.EmailAccount;
 
@@ -8,7 +8,7 @@ public class EmailAccountBuilder {
 
 	private EmailAccount emailAccount;
 
-	private EmailAccountBuilder() {
+	public EmailAccountBuilder() {
 	}
 
 	public static EmailAccountBuilder setEmailAccount() {
@@ -42,7 +42,7 @@ public class EmailAccountBuilder {
 		return this;
 	}
 
-	public EmailAccountBuilder setLastPasswordUpdate(Instant lastPassword) {
+	public EmailAccountBuilder setLastPasswordUpdate(LocalDate lastPassword) {
 		emailAccount.setLastPasswordUpdate(lastPassword);
 		return this;
 	}
