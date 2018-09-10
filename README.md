@@ -11,7 +11,6 @@
         * String subject
         * String message
 ```java
-package school.cesar.unit;
 
 public class Email {
     ...
@@ -30,7 +29,6 @@ public class Email {
         * boolean verifyPasswordExpiration
             * O password é considerado expirado se o lastPasswordUpdate for maior que 90 dias da data atual do sistema
 ```java
-package school.cesar.unit;
 
 public class EmailAccount {
     ...
@@ -41,7 +39,6 @@ public class EmailAccount {
     *	boolean sendEmail(Email email)
     *	Collection\<Email> emailList(EmailAccount account)  
 ```java
-package school.cesar.unit;
 
 import java.util.Collection;
 
@@ -80,8 +77,6 @@ public interface EmailService {
             * adcionar objeto a coleção `accounts`
             
 ```java
-package school.cesar.unit;
-
 public class EmailClient {
     ...
 }
