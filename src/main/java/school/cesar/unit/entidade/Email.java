@@ -8,9 +8,9 @@ public class Email {
 
 	private Instant creationDate;
 	private String from;
-	private List<String> to;
-	private List<String> cc;
-	private List<String> bcc;
+	private Collection<String> to;
+	private Collection<String> cc;
+	private Collection<String> bcc;
 	private String subject;
 	private String message;
 
@@ -34,8 +34,8 @@ public class Email {
 		return to;
 	}
 
-	public void setTo(List<String> to) {
-		this.to = to;
+	public void setTo(Collection<String> targetInvalidEmails) {
+		this.to = targetInvalidEmails;
 	}
 
 	public Collection<String> getCc() {

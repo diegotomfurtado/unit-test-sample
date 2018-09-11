@@ -1,6 +1,6 @@
 package school.cesar.unit.builders;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 import school.cesar.unit.service.EmailAccount;
 
@@ -18,7 +18,7 @@ public class EmailAccountBuilder {
 	}
 
 	public static void standardDataInicialization(EmailAccountBuilder builder) {
-		builder.emailAccount = new EmailAccount();
+		builder.emailAccount = new EmailAccount(null, null, null);
 		EmailAccount email = builder.emailAccount;
 
 		email.setUser("Diego.furtado");
@@ -42,7 +42,7 @@ public class EmailAccountBuilder {
 		return this;
 	}
 
-	public EmailAccountBuilder setLastPasswordUpdate(LocalDate lastPassword) {
+	public EmailAccountBuilder setLastPasswordUpdate(Date lastPassword) {
 		emailAccount.setLastPasswordUpdate(lastPassword);
 		return this;
 	}

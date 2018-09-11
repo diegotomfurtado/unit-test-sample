@@ -1,17 +1,46 @@
 package school.cesar.unit.service;
 
-import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.Date;
 
 public class EmailAccount {
 
-	String user;
-	String domain;
-	String password;
-	LocalDate lastPasswordUpdate;
+	private String user;
+	private String domain;
+	private String password;
+	private Date lastPasswordUpdate;
+
+	public EmailAccount(String user, String domain, String password) {
+		super();
+		this.user = user;
+		this.domain = domain;
+		this.password = password;
+		this.lastPasswordUpdate = new Date();
+	}
+
+	public void setLastPasswordUpdate(Date lastPasswordUpdate) {
+
+		this.lastPasswordUpdate = lastPasswordUpdate;
+	}
+
+	public void setUser(String user) {
+
+		this.user = user;
+	}
+
+	public void setDomain(String domain) {
+
+		this.domain = domain;
+	}
+
+	public void setPassword(String password) {
+
+		this.password = password;
+	}
 
 	public boolean checkIfAUserIsAbleToUse() {
 
-		return this.user.matches("[(.)|(\\-)|(_)0-9a-zA-Z]+");
+		return user.matches("[(.)|(\\-)|(_)0-9a-zA-Z]+");
 	}
 
 	public boolean checkIdADomainIsAbleToUse() {
@@ -24,63 +53,18 @@ public class EmailAccount {
 		return password.length();
 	}
 
+	public String getEmailAddress() {
+		return user + "@" + domain;
+	}
+
 	public boolean verifyPasswordExpiration() {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(new Date());
 
-		return LocalDate.now().minusDays(90).isAfter(this.lastPasswordUpdate);
-	}
+		calendar.add(Calendar.MONTH, -90);
 
-//	public static void main(String[] args) {
-//		verifyPasswordExpiration("05/09/2018");
-//	}
+		return calendar.getTime().after(lastPasswordUpdate);
 
-//	public boolean verifyPasswordExpiration(String startDate) throws ParseException {
-//
-//		boolean checkingIfPasswordExpiration = false;
-//
-//		long totalDaysInProgress = checkingHowLongDaysBetweenActualDateAndLastUpdate(startDate);
-//
-//		if (totalDaysInProgress > 90) {
-//
-//			return checkingIfPasswordExpiration = true;
-//
-//		} else {
-//
-//			return checkingIfPasswordExpiration;
-//		}
-//	}
-//
-//	public long checkingHowLongDaysBetweenActualDateAndLastUpdate(String startDate) throws ParseException {
-//
-//		SimpleDateFormat englishMask = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
-//		Date firstDate = englishMask.parse(startDate);
-//		LocalDate localDate = LocalDate.now();
-//		Date date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-//
-//		long diffInMillies = Math.abs(date.getTime() - firstDate.getTime());
-//		long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
-//
-//		return diff;
-//	}
-
-	public void setLastPasswordUpdate(LocalDate lastPasswordUpdate) {
-		// TODO Auto-generated method stub
-
-		this.lastPasswordUpdate = lastPasswordUpdate;
-	}
-
-	public void setUser(String user) {
-		// TODO Auto-generated method stub
-		this.user = user;
-	}
-
-	public void setDomain(String domain) {
-		// TODO Auto-generated method stub
-		this.domain = domain;
-	}
-
-	public void setPassword(String password) {
-		// TODO Auto-generated method stub
-		this.password = password;
 	}
 
 }

@@ -7,23 +7,24 @@ import school.cesar.unit.interfac.EmailService;
 
 public class EmailClient extends Email implements EmailService {
 
-	private Collection<EmailAccount> accounts;
-	private EmailService emailService;
-	Email email = new Email();
-	EmailAccount emailAccount = new EmailAccount();
+	Collection<EmailAccount> accounts;
+	EmailService emailService;
+	Email email;
+	EmailAccount emailAccount;
 
 	public void setEmailService(EmailService emailService) {
 		this.emailService = emailService;
 	}
 
-	public boolean isValidAdress(String validAdress) {
+	public boolean isValidAdress(String emailAddress) {
 
 		boolean returnAdressInformation = false;
-		String[] returnFromValidAdress = validAdress.split("@");
+		String[] returnFromValidAdress = emailAddress.split("@");
 
-		if (emailAccount.checkIfAUserIsAbleToUse(returnFromValidAdress[0] == true) {
+		EmailAccount emailAccount = new EmailAccount(returnFromValidAdress[0], returnFromValidAdress[1], null);
+		if (emailAccount.checkIfAUserIsAbleToUse() == true) {
 
-			if (emailAccount.checkIdADomainIsAbleToUse(returnFromValidAdress[1]) == true) {
+			if (emailAccount.checkIdADomainIsAbleToUse() == true) {
 				return returnAdressInformation = true;
 			}
 
@@ -31,46 +32,61 @@ public class EmailClient extends Email implements EmailService {
 		return returnAdressInformation;
 	}
 
-	public boolean isValidEmail(String email) {
+	public boolean isValidEmail(Email email) {
 
-		boolean validEmail = false;
-		// tá beeem errado
-//		if ((email.getCreationDate() != null && (!email.getTo().isEmpty() || email.getTo() != null)
-//				&& (!email.getFrom().isEmpty() || email.getFrom() != null))) {
-//			email.getTo();
-//		}
-		return validEmail;
+		boolean validCreationDate = validateCreationDate(email);
+		boolean validFrom = validateFromMail(email);
+		boolean validToMail = validateToMails(email);
+
+		return validCreationDate && validFrom && validToMail;
+	}
+
+	private boolean validateCreationDate(Email email) {
+		return email.getCreationDate() != null;
+	}
+
+	private boolean validateFromMail(Email email) {
+		return isValidAdress(email.getFrom());
+	}
+
+	private boolean validateToMails(Email email) {
+
+		boolean validTos = false;
+		for (String toMailAdress : email.getTo()) {
+			validTos = validTos || isValidAdress(toMailAdress);
+		}
+		return validTos;
+
 	}
 
 	@Override
 	public Collection<Email> emailList(EmailAccount account) {
 
-		return null;
+		if (emailAccount.getPasswordLength() > 6 && emailAccount.verifyPasswordExpiration()) {
+
+			return emailService.emailList(account);
+		} else {
+			throw new RuntimeException();
+		}
 	}
 
 	@Override
 	public boolean sendEmail(Email email) {
 
-//		if (this.isValidEmail() == true) {
-//			emailService.sendEmail(email);
-//			return true;
-//		} else {
-//			throw new RuntimeException("Invalid email to send!");
-//		}
-		return false;
+		if (isValidEmail(email) == true) {
 
+			return emailService.sendEmail(email);
+		} else {
+			throw new RuntimeException("Invalid email to send!");
+		}
 	}
 
 	public boolean createAccount(EmailAccount account) {
 
-//		account.setUser("");
-//		account.setDomain(emailAccount.domain);
-//
-//		emailAccount.checkIfAUserIsAbleToUse(emailAccount.user);
-//		if (emailAccount.getPasswordLength() > 6) {
-//
-//			emailAccount.setLastPasswordUpdate(LocalDate.now());
-//		}
+		if (isValidEmail(email) == true && emailAccount.getPasswordLength() > 6) {
+
+//			emailAccount.setLastPasswordUpdate(Instant.now());
+		}
 		return false;
 	}
 
