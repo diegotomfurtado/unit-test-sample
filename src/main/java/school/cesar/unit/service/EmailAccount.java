@@ -1,24 +1,24 @@
 package school.cesar.unit.service;
 
-import java.util.Calendar;
-import java.util.Date;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 
 public class EmailAccount {
 
 	private String user;
 	private String domain;
 	private String password;
-	private Date lastPasswordUpdate;
+	private Instant lastPasswordUpdate;
 
 	public EmailAccount(String user, String domain, String password) {
 		super();
 		this.user = user;
 		this.domain = domain;
 		this.password = password;
-		this.lastPasswordUpdate = new Date();
+		this.lastPasswordUpdate = Instant.now();
 	}
 
-	public void setLastPasswordUpdate(Date lastPasswordUpdate) {
+	public void setLastPasswordUpdate(Instant lastPasswordUpdate) {
 
 		this.lastPasswordUpdate = lastPasswordUpdate;
 	}
@@ -53,18 +53,20 @@ public class EmailAccount {
 		return password.length();
 	}
 
-	public String getEmailAddress() {
-		return user + "@" + domain;
+	public boolean getEmailAddress(EmailAccount account) {
+		if (checkIfAUserIsAbleToUse() == true && checkIdADomainIsAbleToUse() == true) {
+
+			return true;
+		} else
+			return false;
 	}
 
 	public boolean verifyPasswordExpiration() {
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(new Date());
 
-		calendar.add(Calendar.MONTH, -90);
+		Instant instantNow = Instant.now();
+		Instant instant90DaysAgo = instantNow.plus(-90, ChronoUnit.DAYS);
 
-		return calendar.getTime().after(lastPasswordUpdate);
-
+		return instant90DaysAgo.isAfter(lastPasswordUpdate);
 	}
 
 }

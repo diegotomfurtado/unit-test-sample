@@ -1,5 +1,6 @@
 package school.cesar.unit.service;
 
+import java.time.Instant;
 import java.util.Collection;
 
 import school.cesar.unit.entidade.Email;
@@ -37,8 +38,10 @@ public class EmailClient extends Email implements EmailService {
 		boolean validCreationDate = validateCreationDate(email);
 		boolean validFrom = validateFromMail(email);
 		boolean validToMail = validateToMails(email);
+		boolean validBccMail = validateBccMails(email);
+		boolean validCcMail = validateCcMails(email);
 
-		return validCreationDate && validFrom && validToMail;
+		return validCreationDate && validFrom && validToMail && validBccMail && validCcMail;
 	}
 
 	private boolean validateCreationDate(Email email) {
@@ -56,6 +59,26 @@ public class EmailClient extends Email implements EmailService {
 			validTos = validTos || isValidAdress(toMailAdress);
 		}
 		return validTos;
+
+	}
+
+	private boolean validateCcMails(Email email) {
+
+		boolean validCcs = false;
+		for (String ccMailAdress : email.getCc()) {
+			validCcs = validCcs || isValidAdress(ccMailAdress);
+		}
+		return validCcs;
+
+	}
+
+	private boolean validateBccMails(Email email) {
+
+		boolean validBccs = false;
+		for (String bccMailAdress : email.getBcc()) {
+			validBccs = validBccs || isValidAdress(bccMailAdress);
+		}
+		return validBccs;
 
 	}
 
@@ -83,9 +106,12 @@ public class EmailClient extends Email implements EmailService {
 
 	public boolean createAccount(EmailAccount account) {
 
-		if (isValidEmail(email) == true && emailAccount.getPasswordLength() > 6) {
+		if (emailAccount.getEmailAddress(account) == true && emailAccount.getPasswordLength() > 6) {
 
-//			emailAccount.setLastPasswordUpdate(Instant.now());
+			emailAccount.setLastPasswordUpdate(Instant.now());
+			emailList(account);
+
+			return true;
 		}
 		return false;
 	}

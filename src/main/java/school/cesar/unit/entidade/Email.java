@@ -2,7 +2,6 @@ package school.cesar.unit.entidade;
 
 import java.time.Instant;
 import java.util.Collection;
-import java.util.List;
 
 public class Email {
 
@@ -42,7 +41,7 @@ public class Email {
 		return cc;
 	}
 
-	public void setCc(List<String> cc) {
+	public void setCc(Collection<String> cc) {
 		this.cc = cc;
 	}
 
@@ -50,7 +49,7 @@ public class Email {
 		return bcc;
 	}
 
-	public void setBcc(List<String> bcc) {
+	public void setBcc(Collection<String> bcc) {
 		this.bcc = bcc;
 	}
 

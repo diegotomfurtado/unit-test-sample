@@ -1,6 +1,7 @@
 package school.cesar.unit.test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.Instant;
@@ -25,8 +26,8 @@ public class EmailIsValidAdressTest {
 
 		email = new Email();
 		email.setCreationDate(Instant.now());
-		// email.setBcc(targetEmails);
-		// email.setCc(targetEmails);
+		email.setBcc(targetEmails);
+		email.setCc(targetEmails);
 		email.setTo(targetEmails);
 		email.setFrom("diego.furtado@gmail.com");
 		email.setMessage("Hello, its me!");
@@ -72,17 +73,20 @@ public class EmailIsValidAdressTest {
 	}
 
 	@Test
-	public void isValidAdressWithoutUser() {
+	public void isNotValidAdressWithoutUser() {
 
 		emailClient = new EmailClient();
 		assertFalse(emailClient.isValidAdress("@gmail.com"));
 	}
 
 	@Test
-	public void isValidAdressWithoutDomain() {
+	public void isNotValidAdressWithoutDomain() {
 
 		emailClient = new EmailClient();
-		assertFalse(emailClient.isValidAdress("diego_furtado@"));
+
+		assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
+			emailClient.isValidAdress("diego_furtado@");
+		});
 	}
 
 	@Test
@@ -100,7 +104,7 @@ public class EmailIsValidAdressTest {
 	}
 
 	@Test
-	public void invalidEmailByEmptyCreationDate() {
+	public void isNotValidEmailByEmptyCreationDate() {
 
 		email.setCreationDate(null);
 		assertFalse(emailClient.isValidEmail(email));
@@ -124,7 +128,7 @@ public class EmailIsValidAdressTest {
 	}
 
 	@Test
-	void invalidEmailByInvalidFromAddress() {
+	void isNotValidEmailByInvalidFromAddress() {
 
 		email.setFrom("des$c*onhecido@nada.com");
 		assertFalse(emailClient.isValidEmail(email));
