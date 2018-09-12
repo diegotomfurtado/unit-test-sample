@@ -19,12 +19,12 @@ public class EmailAccountBuilder {
 
 	public static void standardDataInicialization(EmailAccountBuilder builder) {
 		builder.emailAccount = new EmailAccount(null, null, null);
-		EmailAccount email = builder.emailAccount;
+		EmailAccount emailAccount = builder.emailAccount;
 
-		email.setUser("Diego.furtado");
-		email.setDomain("gmail.com");
-		email.setPassword("123456");
-		email.setLastPasswordUpdate(null);
+		emailAccount.setUser("Diego.furtado");
+		emailAccount.setDomain("gmail.com");
+		emailAccount.setPassword("123456");
+		emailAccount.setLastPasswordUpdate(null);
 	}
 
 	public EmailAccountBuilder setUser(String user) {
@@ -50,4 +50,5 @@ public class EmailAccountBuilder {
 	public EmailAccount build() {
 		return emailAccount;
 	}
+
 }
