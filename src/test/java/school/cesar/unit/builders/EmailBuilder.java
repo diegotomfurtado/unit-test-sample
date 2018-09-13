@@ -1,75 +1,69 @@
 package school.cesar.unit.builders;
 
 import java.time.Instant;
-import java.util.Arrays;
-import java.util.List;
+import java.util.Collection;
 
 import school.cesar.unit.entidade.Email;
 
 public class EmailBuilder {
-	
-	private Email email;
 
-	public EmailBuilder() {
-	}
+	private Instant creationDate;
+	private String from;
+	private Collection<String> listTo;
+	private Collection<String> listCc;
+	private Collection<String> listBcc;
+	private String subject;
+	private String message;
 
-	public static EmailBuilder setEmail() {
-		EmailBuilder builder = new EmailBuilder();
-		standardDataInicialization(builder);
-		return builder;
-	}
-
-	public static void standardDataInicialization(EmailBuilder builder) {
-		builder.email = new Email();
-		Email email = builder.email;
-		
-		List<String> targetEmails = Arrays.asList("habemus123_email.com", "mamute123@email.com");
-
-		email.setCreationDate(Instant.now());
-		email.setFrom("diego123.furtado@gmail.com");
-		email.setTo(targetEmails);
-		email.setCc(targetEmails);
-		email.setBcc(targetEmails);
-		email.setSubject("Hello, its me! 123");
-		email.setMessage("Nothing to declare! 123");
-	}
+	Email email = new Email();
 
 	public EmailBuilder comCreationDate(Instant creationDate) {
-		email.setCreationDate(creationDate);
+		this.creationDate = creationDate;
 		return this;
 	}
 
 	public EmailBuilder setFrom(String from) {
-		email.setFrom(from);
-		return this;
-	}
-
-	public EmailBuilder setListTo(String... listTo) {
-		email.setTo(Arrays.asList(listTo));
-		return this;
-	}
-
-	public EmailBuilder setListCc(String... listCc) {
-		email.setCc(Arrays.asList(listCc));
-		return this;
-	}
-
-	public EmailBuilder setListBcc(String... listBcc) {
-		email.setBcc(Arrays.asList(listBcc));
+		this.from = from;
 		return this;
 	}
 
 	public EmailBuilder setSubject(String subject) {
-		email.setSubject(subject);
+		this.subject = subject;
 		return this;
 	}
 
 	public EmailBuilder sethMessage(String message) {
-		email.setMessage(message);
+		this.message = message;
+		return this;
+	}
+
+	public EmailBuilder setTo(Collection<String> listTo) {
+		this.listTo = listTo;
+		return this;
+	}
+
+	public EmailBuilder setCc(Collection<String> listCc) {
+		this.listCc = listCc;
+		return this;
+	}
+
+	public EmailBuilder setBcc(Collection<String> listBcc) {
+		this.listBcc = listBcc;
 		return this;
 	}
 
 	public Email build() {
+		Email email = new Email();
+
+		email.setCreationDate(this.creationDate);
+		email.setSubject(this.subject);
+		email.setSubject(this.subject);
+		email.setMessage(this.message);
+		email.setTo(this.listTo);
+		email.setCc(this.listCc);
+		email.setBcc(this.listBcc);
+		email.setFrom(this.from);
+
 		return email;
 	}
 

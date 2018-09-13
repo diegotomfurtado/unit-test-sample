@@ -22,7 +22,7 @@ public class EmailClient extends Email implements EmailService {
 		boolean returnAdressInformation = false;
 		String[] returnFromValidAdress = emailAddress.split("@");
 
-		EmailAccount emailAccount = new EmailAccount(returnFromValidAdress[0], returnFromValidAdress[1], null);
+		EmailAccount emailAccount = new EmailAccount(returnFromValidAdress[0], returnFromValidAdress[1], null, null);
 		if (emailAccount.checkIfAUserIsAbleToUse() == true) {
 
 			if (emailAccount.checkIdADomainIsAbleToUse() == true) {
@@ -85,11 +85,11 @@ public class EmailClient extends Email implements EmailService {
 	@Override
 	public Collection<Email> emailList(EmailAccount account) {
 
-		if (emailAccount.getPasswordLength() > 6 && emailAccount.verifyPasswordExpiration()) {
+		if (account.getPasswordLength() > 6 && account.verifyPasswordExpiration()==false) {
 
 			return emailService.emailList(account);
 		} else {
-			throw new RuntimeException();
+			throw new RuntimeException("Emails List is not valid!");
 		}
 	}
 

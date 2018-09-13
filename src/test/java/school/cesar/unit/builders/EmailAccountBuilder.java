@@ -6,49 +6,37 @@ import school.cesar.unit.service.EmailAccount;
 
 public class EmailAccountBuilder {
 
-	private EmailAccount emailAccount;
-
-	public EmailAccountBuilder() {
-	}
-
-	public static EmailAccountBuilder setEmailAccount() {
-		EmailAccountBuilder builder = new EmailAccountBuilder();
-		standardDataInicialization(builder);
-		return builder;
-	}
-
-	public static void standardDataInicialization(EmailAccountBuilder builder) {
-		builder.emailAccount = new EmailAccount(null, null, null);
-		EmailAccount emailAccount = builder.emailAccount;
-
-		emailAccount.setUser("Diego.furtado");
-		emailAccount.setDomain("gmail.com");
-		emailAccount.setPassword("123456");
-		emailAccount.setLastPasswordUpdate(null);
-	}
+	private String user = "John";
+	private String domain = "Doe";
+	private String password = "123456";
+	private Instant lastPasswordUpdate = Instant.now();
 
 	public EmailAccountBuilder setUser(String user) {
-		emailAccount.setUser(user);
+		this.user = user;
 		return this;
 	}
 
 	public EmailAccountBuilder setDomain(String domain) {
-		emailAccount.setDomain(domain);
+		this.domain = domain;
 		return this;
 	}
 
 	public EmailAccountBuilder setPassword(String password) {
-		emailAccount.setPassword(password);
+		this.password = password;
 		return this;
 	}
 
-	public EmailAccountBuilder setLastPasswordUpdate(Instant lastPassword) {
-		emailAccount.setLastPasswordUpdate(lastPassword);
+	public EmailAccountBuilder setLastPasswordUpdate(Instant lastPasswordUpdate) {
+		this.lastPasswordUpdate = lastPasswordUpdate;
 		return this;
 	}
 
 	public EmailAccount build() {
+		EmailAccount emailAccount = new EmailAccount(null, null, null, null);
+		emailAccount.setUser(this.user);
+		emailAccount.setDomain(this.domain);
+		emailAccount.setPassword(this.password);
+		emailAccount.setLastPasswordUpdate(this.lastPasswordUpdate);
 		return emailAccount;
 	}
-
 }
