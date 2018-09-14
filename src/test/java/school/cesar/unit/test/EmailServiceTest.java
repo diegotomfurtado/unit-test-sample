@@ -38,7 +38,7 @@ public class EmailServiceTest {
 			public Collection<Email> emailList(EmailAccount account) {
 
 				emailAccount = emailAccountBuilder.setUser("Josemar").setPassword("123").build();
-//				emailAccount = emailAccountBuilder.setPassword("12345").build();
+				emailAccount = emailAccountBuilder.setPassword("12345").build();
 
 				return emailService.emailList(emailAccount);
 			}
