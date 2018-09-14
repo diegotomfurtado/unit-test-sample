@@ -8,7 +8,7 @@ public class EmailAccountBuilder {
 
 	private String user = "Diego.Furtado";
 	private String domain = "gmail.com";
-	private String password = "1234567890";
+	private String password = null;
 	private Instant lastPasswordUpdate = Instant.now();
 
 	public EmailAccountBuilder setUser(String user) {

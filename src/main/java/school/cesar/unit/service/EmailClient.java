@@ -85,7 +85,7 @@ public class EmailClient extends Email implements EmailService {
 	@Override
 	public Collection<Email> emailList(EmailAccount account) {
 
-		if (account.getPasswordLength(account) > 6 && account.verifyPasswordExpiration()==false) {
+		if (account.getPasswordLength(account) > 6 && account.verifyPasswordExpiration() == false) {
 
 			return emailService.emailList(account);
 		} else {
@@ -110,20 +110,11 @@ public class EmailClient extends Email implements EmailService {
 
 			emailAccount.setLastPasswordUpdate(Instant.now());
 			emailList(account);
+//			emailList(emailAccount);
 
 			return true;
 		}
 		return false;
-	}
-
-	public void setEmailAccount(EmailAccount emailAccount) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void setAccounts(Collection<EmailAccount> asList) {
-		// TODO Auto-generated method stub
-
 	}
 
 }

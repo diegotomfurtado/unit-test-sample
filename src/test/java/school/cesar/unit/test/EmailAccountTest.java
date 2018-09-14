@@ -55,16 +55,7 @@ public class EmailAccountTest {
 		Instant instant91DaysAgo = instantNow.plus(DAYS_91, ChronoUnit.DAYS);
 
 		emailAccount = emailAccountBuilder.setLastPasswordUpdate(instant91DaysAgo).build();
-
 		assertTrue(emailAccount.verifyPasswordExpiration());
 	}
-	
-	@Test
-	public void createAccount() {
-		
-		emailAccount = emailAccountBuilder.build();
-		assertTrue(emailClient.createAccount(emailAccount));
-	}
-	
-	
+
 }
