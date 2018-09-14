@@ -1,15 +1,26 @@
 package school.cesar.unit.test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.lang.reflect.Executable;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import school.cesar.unit.builders.EmailAccountBuilder;
+import school.cesar.unit.builders.EmailBuilder;
 import school.cesar.unit.entidade.Email;
 import school.cesar.unit.interfac.EmailService;
 import school.cesar.unit.service.EmailAccount;
@@ -17,38 +28,54 @@ import school.cesar.unit.service.EmailClient;
 
 public class EmailServiceTest {
 
-	private EmailService emailService;
 	private EmailClient emailClient;
-	private EmailAccountBuilder emailAccountBuilder;
 	private EmailAccount emailAccount;
+	private EmailAccountBuilder emailAccountBuilder;
+	private EmailBuilder emailBuilder;
 
 	@BeforeEach
 	public void setUp() {
+		
+		Map<String, List<Email>> accountFromMailToSentEmailsMockDB = new HashMap<>();
 
+		Email e1 = new Email();
+		e1.setFrom("sample1@email.com");
+		e1.setCreationDate(Instant.now());
+		e1.setTo(Arrays.asList("dest1@email.com", "dest2@email.com"));
+		e1.setMessage("Teste 123");
+		
+		Email e2 = new Email();
+		e2.setFrom("sample1@email.com");
+		e2.setCreationDate(Instant.now());
+		e2.setTo(Arrays.asList("dest3@email.com", "dest4@email.com"));
+		e2.setMessage("Teste 456 ABC");
+		
+		accountFromMailToSentEmailsMockDB.put("sample1@email.com", Arrays.asList(e1, e2));
+		
 		emailAccountBuilder = new EmailAccountBuilder();
-		emailService = new EmailService() {
-
+		emailBuilder = new EmailBuilder();
+		EmailService emailService = new EmailService() {
+			
 			@Override
 			public boolean sendEmail(Email email) {
+				
+				List<Email> sentEmails = accountFromMailToSentEmailsMockDB.getOrDefault(email.getFrom(), new ArrayList<>());
+				sentEmails.add(email);
 
+				accountFromMailToSentEmailsMockDB.put(email.getFrom(), sentEmails);
 				return true;
 			}
 
 			@Override
 			public Collection<Email> emailList(EmailAccount account) {
-
-				emailAccount = emailAccountBuilder.setUser("Josemar").setPassword("123").build();
-				emailAccount = emailAccountBuilder.setPassword("12345").build();
-
-				return emailService.emailList(emailAccount);
+				
+				return accountFromMailToSentEmailsMockDB.getOrDefault(account.getEmailAddress(), new ArrayList<>());
 			}
 
 		};
 
 		emailClient = new EmailClient();
-
 		emailClient.setEmailService(emailService);
-
 	}
 
 	@Test
@@ -66,14 +93,61 @@ public class EmailServiceTest {
 		emailAccount = emailAccountBuilder.setPassword("1234567890").build();
 		assertTrue(emailClient.createAccount(emailAccount));
 	}
-
+	
 	@Test
-	public void valideEmailAccountList() {
+	public void validEmailAccountList() {
 
-		Collection<Email> emailList = emailService.emailList(emailAccount);
+		EmailAccount acc = emailAccountBuilder
+			.setUser("sample1")
+			.setDomain("email.com")
+			.setLastPasswordUpdate(Instant.now())
+			.setPassword("1234567890")
+			.build();
+		
+		Collection<Email> emailList = emailClient.emailList(acc);
 
-		Assertions.assertEquals(4, emailList.size());
-		// asserts...
+		assertEquals(2, emailList.size());
+		
+	}
+	
+	@Test
+	public void sendEmail_Sucess() {
+		
+		Email acc2 = emailBuilder
+				.setFrom("Diego.Furtado@gmail.com")
+				.sethMessage("One Piece.")
+				.setSubject("One Piece.")
+				.setTo(Arrays.asList("dest1@email.com", "dest2@email.com"))
+				.setBcc(Arrays.asList("Bcc1@email.com", "Bcc2@email.com"))
+				.setCc(Arrays.asList("Cc1@email.com", "Cc2@email.com"))
+				.setCreationDate(Instant.now())
+				.build();
+			
+		Assertions.assertTrue(emailClient.sendEmail(acc2));
+		
+	}
+	
+	@Test
+	public void sendEmail_noSucess() {
+		
+		Instant instantNow = Instant.now();
+		Instant instant89DaysAgo = instantNow.plus(-91, ChronoUnit.DAYS);
+		
+		
+		Email acc2 = emailBuilder
+				.setFrom("Diego.Furtado@_#gmail.com")
+				.sethMessage("One Piece.")
+				.setSubject("One Piece.")
+				.setTo(Arrays.asList("dest1@email.com", "dest2@email.com"))
+				.setBcc(Arrays.asList("Bcc1@email.com", "Bcc2@email.com"))
+				.setCc(Arrays.asList("Cc1@email.com", "Cc2@email.com"))
+				.setCreationDate(instant89DaysAgo)
+				.build();
+		
+		assertThrows(RuntimeException.class, () -> {
+			emailClient.sendEmail(acc2);
+		    });
+		
 	}
 
 }

@@ -55,7 +55,7 @@ public class EmailAccount {
 		return account.password.length();
 	}
 
-	public boolean getEmailAddress(EmailAccount account) {
+	public boolean validUserAndDomain(EmailAccount account) {
 
 		if (account.checkIfAUserIsAbleToUse() == true && account.checkIdADomainIsAbleToUse() == true) {
 			return true;
@@ -69,6 +69,10 @@ public class EmailAccount {
 		Instant instant89DaysAgo = instantNow.plus(-DAYS_91, ChronoUnit.DAYS);
 
 		return instant89DaysAgo.isAfter(lastPasswordUpdate);
+	}
+	
+	public String getEmailAddress() {
+		return user+"@"+domain;
 	}
 
 }

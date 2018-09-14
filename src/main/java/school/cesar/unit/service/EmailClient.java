@@ -106,11 +106,10 @@ public class EmailClient extends Email implements EmailService {
 
 	public boolean createAccount(EmailAccount account) {
 
-		if (emailAccount.getEmailAddress(account) == true && emailAccount.getPasswordLength(account) > 6) {
+		if (emailAccount.validUserAndDomain(account) == true && emailAccount.getPasswordLength(account) > 6) {
 
 			emailAccount.setLastPasswordUpdate(Instant.now());
 			emailList(account);
-//			emailList(emailAccount);
 
 			return true;
 		}

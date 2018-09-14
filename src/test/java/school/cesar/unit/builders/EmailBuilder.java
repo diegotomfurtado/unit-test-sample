@@ -15,9 +15,7 @@ public class EmailBuilder {
 	private String subject;
 	private String message;
 
-	Email email = new Email();
-
-	public EmailBuilder comCreationDate(Instant creationDate) {
+	public EmailBuilder setCreationDate(Instant creationDate) {
 		this.creationDate = creationDate;
 		return this;
 	}
