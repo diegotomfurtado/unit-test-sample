@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.lang.reflect.Executable;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -95,7 +94,7 @@ public class EmailServiceTest {
 	}
 	
 	@Test
-	public void validEmailAccountList() {
+	public void emailAccountList_shouldBeCreateAList() {
 
 		EmailAccount acc = emailAccountBuilder
 			.setUser("sample1")
@@ -107,6 +106,50 @@ public class EmailServiceTest {
 		Collection<Email> emailList = emailClient.emailList(acc);
 
 		assertEquals(2, emailList.size());
+		
+	}
+	
+	@Test
+	public void emailAccountList_shouldNotBeValid_wrongLenghtPassword() {
+
+		EmailAccount acc = emailAccountBuilder
+			.setUser("sample1")
+			.setDomain("email.com")
+			.setLastPasswordUpdate(Instant.now())
+			.setPassword("123")
+			.build();
+		
+		assertThrows(RuntimeException.class, () -> { emailClient.emailList(acc); });
+		
+	}
+
+	@Test
+	public void emailAccountList_sendertWithoutDeliveryList_shouldBeReturnZero() {
+		
+		EmailAccount acc = emailAccountBuilder
+				.setUser("UserWithoutList")
+				.setDomain("email.com")
+				.setLastPasswordUpdate(Instant.now())
+				.setPassword("1234567")
+				.build();
+		
+		Collection<Email> emailList = emailClient.emailList(acc);
+		
+		assertEquals(0, emailList.size());
+		
+	}
+
+	@Test
+	public void emailAccountList_shouldNotBeValid_emptyList() {
+
+		EmailAccount acc = emailAccountBuilder
+			.setUser("UserWithoutList")
+			.setDomain("email.com")
+			.setLastPasswordUpdate(Instant.now())
+			.setPassword("123")
+			.build();
+		
+		assertThrows(RuntimeException.class, () -> { emailClient.emailList(acc); });
 		
 	}
 	
@@ -144,9 +187,7 @@ public class EmailServiceTest {
 				.setCreationDate(instant89DaysAgo)
 				.build();
 		
-		assertThrows(RuntimeException.class, () -> {
-			emailClient.sendEmail(acc2);
-		    });
+		assertThrows(RuntimeException.class, () -> { emailClient.sendEmail(acc2); });
 		
 	}
 

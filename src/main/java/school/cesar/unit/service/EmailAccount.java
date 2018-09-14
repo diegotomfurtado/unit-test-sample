@@ -51,7 +51,7 @@ public class EmailAccount {
 	}
 
 	public int getPasswordLength(EmailAccount account) {
-		
+
 		return account.password.length();
 	}
 
@@ -70,9 +70,9 @@ public class EmailAccount {
 
 		return instant89DaysAgo.isAfter(lastPasswordUpdate);
 	}
-	
+
 	public String getEmailAddress() {
-		return user+"@"+domain;
+		return user + "@" + domain;
 	}
 
 }

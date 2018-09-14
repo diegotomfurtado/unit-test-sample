@@ -79,7 +79,6 @@ public class EmailClient extends Email implements EmailService {
 			validBccs = validBccs || isValidAdress(bccMailAdress);
 		}
 		return validBccs;
-
 	}
 
 	@Override
