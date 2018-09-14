@@ -50,14 +50,14 @@ public class EmailAccount {
 		return domain.matches("\\b((?=[a-z0-9-]{1,}\\.)[a-z0-9]+(-[a-z0-9]+)*\\.)+[a-z]{2,}\\b");
 	}
 
-	public int getPasswordLength() {
-
-		return password.length();
+	public int getPasswordLength(EmailAccount account) {
+		
+		return account.password.length();
 	}
 
 	public boolean getEmailAddress(EmailAccount account) {
 
-		if (checkIfAUserIsAbleToUse() == true && checkIdADomainIsAbleToUse() == true) {
+		if (account.checkIfAUserIsAbleToUse() == true && account.checkIdADomainIsAbleToUse() == true) {
 			return true;
 		} else
 			return false;

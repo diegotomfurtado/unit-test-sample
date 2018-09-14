@@ -59,7 +59,7 @@ public class EmailIsValidAdressTest {
 	}
 
 	@Test
-	public void isValidAdressWithSomeSpecialsCharacters() {
+	public void isValidAdressWithMixCharacters() {
 
 		emailClient = new EmailClient();
 		assertTrue(emailClient.isValidAdress("-diego.furtado_@gmail.com"));
@@ -84,23 +84,28 @@ public class EmailIsValidAdressTest {
 
 		emailClient = new EmailClient();
 
-		assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
-			emailClient.isValidAdress("diego_furtado@");
-		});
+		assertThrows(ArrayIndexOutOfBoundsException.class, () -> { emailClient.isValidAdress("diego_furtado@");	});
 	}
 
 	@Test
-	public void isValidAdressWithDoubleDotInSequence() {
+	public void validateDomain_dobleSequenceDot() {
 
 		emailClient = new EmailClient();
 		assertFalse(emailClient.isValidAdress("diego_furtado@gmail..com"));
 	}
 
 	@Test
-	public void isValidAdressWithDoubleDotinDomain() {
+	public void validateDomain_dobleDot() {
 
 		emailClient = new EmailClient();
 		assertTrue(emailClient.isValidAdress("diego_furtado@gmail.com.br"));
+	}
+	
+	@Test
+	public void validateDomain_numbersAndDotAndLetters() {
+
+		emailClient = new EmailClient();
+		assertTrue(emailClient.isValidAdress("diego_furtado@gmail2.com.br"));
 	}
 
 	@Test
@@ -120,8 +125,11 @@ public class EmailIsValidAdressTest {
 	@Test
 	public void isValidEmailByInvalidToAddress() {
 
-		List<String> targetInvalidEmails = Arrays.asList("habemus-@email.com", "mamu$te@email.com",
-				"email.ok@email.com");
+		List<String> targetInvalidEmails = Arrays.asList(
+				"habemus-@email.com", 
+				"mamu$te@email.com",	
+				"email.ok@email.com"
+				);
 		email.setTo(targetInvalidEmails);
 
 		assertTrue(emailClient.isValidEmail(email));

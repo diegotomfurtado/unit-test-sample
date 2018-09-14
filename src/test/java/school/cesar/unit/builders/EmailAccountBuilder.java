@@ -6,9 +6,9 @@ import school.cesar.unit.service.EmailAccount;
 
 public class EmailAccountBuilder {
 
-	private String user = "John";
-	private String domain = "Doe";
-	private String password = "123456";
+	private String user = "Diego.Furtado";
+	private String domain = "gmail.com";
+	private String password = "1234567890";
 	private Instant lastPasswordUpdate = Instant.now();
 
 	public EmailAccountBuilder setUser(String user) {

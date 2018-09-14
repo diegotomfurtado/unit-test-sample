@@ -11,12 +11,14 @@ import org.junit.jupiter.api.Test;
 
 import school.cesar.unit.builders.EmailAccountBuilder;
 import school.cesar.unit.service.EmailAccount;
+import school.cesar.unit.service.EmailClient;
 
 public class EmailAccountTest {
 
 	EmailAccount emailAccount;
 	EmailAccountBuilder emailAccountBuilder;
 	Instant instantNow;
+	EmailClient emailClient;
 
 	private static final int DAYS_89 = -89;
 	private static final int DAYS_90 = -90;
@@ -26,6 +28,7 @@ public class EmailAccountTest {
 	public void setUp() {
 		instantNow = Instant.now();
 		emailAccountBuilder = new EmailAccountBuilder();
+		emailClient = new EmailClient();
 	}
 
 	@Test
@@ -55,4 +58,13 @@ public class EmailAccountTest {
 
 		assertTrue(emailAccount.verifyPasswordExpiration());
 	}
+	
+	@Test
+	public void createAccount() {
+		
+		emailAccount = emailAccountBuilder.build();
+		assertTrue(emailClient.createAccount(emailAccount));
+	}
+	
+	
 }

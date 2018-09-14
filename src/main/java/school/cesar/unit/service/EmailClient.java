@@ -11,7 +11,7 @@ public class EmailClient extends Email implements EmailService {
 	Collection<EmailAccount> accounts;
 	EmailService emailService;
 	Email email;
-	EmailAccount emailAccount;
+	EmailAccount emailAccount = new EmailAccount(null, null, null, null);
 
 	public void setEmailService(EmailService emailService) {
 		this.emailService = emailService;
@@ -85,7 +85,7 @@ public class EmailClient extends Email implements EmailService {
 	@Override
 	public Collection<Email> emailList(EmailAccount account) {
 
-		if (account.getPasswordLength() > 6 && account.verifyPasswordExpiration()==false) {
+		if (account.getPasswordLength(account) > 6 && account.verifyPasswordExpiration()==false) {
 
 			return emailService.emailList(account);
 		} else {
@@ -106,7 +106,7 @@ public class EmailClient extends Email implements EmailService {
 
 	public boolean createAccount(EmailAccount account) {
 
-		if (emailAccount.getEmailAddress(account) == true && emailAccount.getPasswordLength() > 6) {
+		if (emailAccount.getEmailAddress(account) == true && emailAccount.getPasswordLength(account) > 6) {
 
 			emailAccount.setLastPasswordUpdate(Instant.now());
 			emailList(account);

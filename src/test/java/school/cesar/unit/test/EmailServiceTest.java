@@ -37,21 +37,20 @@ public class EmailServiceTest {
 			public Collection<Email> emailList(EmailAccount account) {
 
 				List<Email> mockMails = new ArrayList<>();
-
+//				mockMails.add(account.getPasswordLength());
 				account = new EmailAccountBuilder()
 								.setUser("Diego.Furtado")
 								.setDomain("Gmail.com")
 								.setPassword("123456")
 								.setLastPasswordUpdate(null)
 								.build();
-				Email mail2; // = new EmailAccount("user2","domain", "password");
+//				Email mail2 = mockMails.addAll(mockMails); //("user2","domain", "password");
 				Email mail3; // = new EmailAccount("user3","domain", "password");
 //				mockMails.add(mail1);
 //				mockMails.add(mail2);
 //				mockMails.add(mail3);
+				return mockMails;
 				
-				Collection<Email> account2 = (Collection<Email>) account;
-				return  account2;
 			}
 
 		};
