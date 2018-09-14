@@ -19,47 +19,28 @@ public class EmailServiceTest {
 
 	private EmailService emailService;
 	private EmailClient emailClient;
-	private EmailAccountBuilder emailAccountBuilder = new EmailAccountBuilder();;
-//	private EmailAccount account;
+	private EmailAccountBuilder emailAccountBuilder;
 	private EmailAccount emailAccount;
 
 	@BeforeEach
 	public void setUp() {
 
+		emailAccountBuilder = new EmailAccountBuilder();
 		emailService = new EmailService() {
-			
+
 			@Override
 			public boolean sendEmail(Email email) {
-				// TODO Auto-generated method stub
+
 				return true;
 			}
 
 			@Override
 			public Collection<Email> emailList(EmailAccount account) {
 
-//				List<Email> mockMails = new ArrayList<>();
-////				mockMails.add(account.getPasswordLength());
-//				account = new EmailAccountBuilder()
-//								.setUser("Diego.Furtado")
-//								.setDomain("Gmail.com")
-//								.setPassword("123456")
-//								.setLastPasswordUpdate(null)
-//								.build();
-//				Email mail2 = mockMails.addAll(mockMails); //("user2","domain", "password");
-				Email mail3; // = new EmailAccount("user3","domain", "password");
-//				mockMails.add(mail1);
-//				mockMails.add(mail2);
-//				mockMails.add(mail3);
-//				return mockMails;
-				
-				emailAccount = new EmailAccount(null, null, null, null);
-				
-				emailAccount = emailAccountBuilder.setPassword("123").build();
-				emailAccount = emailAccountBuilder.setPassword("12345").build();
-				
-				
+				emailAccount = emailAccountBuilder.setUser("Josemar").setPassword("123").build();
+//				emailAccount = emailAccountBuilder.setPassword("12345").build();
+
 				return emailService.emailList(emailAccount);
-				
 			}
 
 		};
@@ -69,6 +50,7 @@ public class EmailServiceTest {
 		emailClient.setEmailService(emailService);
 
 	}
+
 	@Test
 	public void createAccount_notSuccess() {
 
@@ -88,12 +70,7 @@ public class EmailServiceTest {
 	@Test
 	public void valideEmailAccountList() {
 
-		emailAccount = emailAccountBuilder.build();
-		emailAccount = emailAccountBuilder.setUser("Augusto").setPassword("1234567890").build();
-		emailAccount = emailAccountBuilder.setUser("Josemar").setDomain("hotmail.com").setPassword("1234567890").build();
-		emailAccount = emailAccountBuilder.setUser("Jonathan").setPassword("1234567890").build();
-
-		Collection<Email> emailList = emailClient.emailList(emailAccount);
+		Collection<Email> emailList = emailService.emailList(emailAccount);
 
 		Assertions.assertEquals(4, emailList.size());
 		// asserts...
