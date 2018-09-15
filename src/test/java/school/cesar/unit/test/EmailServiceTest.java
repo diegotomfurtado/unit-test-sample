@@ -96,6 +96,13 @@ public class EmailServiceTest {
 	}
 	
 	@Test
+	public void createAccount_userAdressIsNotValid_False() {
+
+		emailAccount = emailAccountBuilder.setUser("diego$furtado").build();
+		assertFalse(emailClient.createAccount(emailAccount));
+	}
+	
+	@Test
 	public void emailAccountList_shouldBeCreateAList_true() {
 
 		EmailAccount acc = emailAccountBuilder

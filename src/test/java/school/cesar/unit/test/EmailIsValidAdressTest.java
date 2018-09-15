@@ -122,6 +122,12 @@ public class EmailIsValidAdressTest {
 		email.setCreationDate(null);
 		assertFalse(emailClient.isValidEmail(email));
 	}
+	
+	@Test
+	public void isValidUserAndDomain_False() {
+		
+		
+	}
 
 	@Test
 	public void isValidEmail_InvalidListToAddress_True() {
