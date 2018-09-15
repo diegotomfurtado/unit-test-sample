@@ -58,8 +58,8 @@ public class EmailClient extends Email implements EmailService {
 		for (String toMailAdress : email.getTo()) {
 			validTos = validTos || isValidAddress(toMailAdress);
 		}
+		
 		return validTos;
-
 	}
 
 	private boolean validateCcMails(Email email) {
