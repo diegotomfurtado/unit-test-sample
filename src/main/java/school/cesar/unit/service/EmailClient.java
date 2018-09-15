@@ -3,6 +3,7 @@ package school.cesar.unit.service;
 import java.time.Instant;
 import java.util.Collection;
 
+import exceptions.MyException;
 import school.cesar.unit.entidade.Email;
 import school.cesar.unit.interfac.EmailService;
 
@@ -25,13 +26,10 @@ public class EmailClient extends Email implements EmailService {
 		boolean returnAdressInformation = false;
 		String[] returnFromValidAdress = emailAddress.split("@");
 
-		EmailAccount emailAccount = new EmailAccount(returnFromValidAdress[0], returnFromValidAdress[1], null, null);
-		if (emailAccount.checkIfAUserIsAbleToUse() == true) {
+		EmailAccount emailAccountToValid = new EmailAccount(returnFromValidAdress[0], returnFromValidAdress[1], null, null);
+		if (emailAccountToValid.checkIfAUserIsAbleToUse()  && emailAccountToValid.checkIdADomainIsAbleToUse() ) {
 
-			if (emailAccount.checkIdADomainIsAbleToUse() == true) {
-				return returnAdressInformation = true;
-			}
-
+			return returnAdressInformation = true;
 		}
 		return returnAdressInformation;
 	}
@@ -91,18 +89,18 @@ public class EmailClient extends Email implements EmailService {
 
 			return emailService.emailList(account);
 		} else {
-			throw new RuntimeException("Emails List is not valid!");
+			throw new MyException("Emails List is not valid!");
 		}
 	}
 
 	@Override
 	public boolean sendEmail(Email email) {
 
-		if (isValidEmail(email) == true) {
+		if (isValidEmail(email)) {
 
 			return emailService.sendEmail(email);
 		} else {
-			throw new RuntimeException("Invalid email to send!");
+			throw new MyException("Invalid email to send!");
 		}
 	}
 

@@ -60,10 +60,11 @@ public class EmailAccount {
 
 	public boolean validUserAndDomain(EmailAccount account) {
 
-		if (account.checkIfAUserIsAbleToUse() == true && account.checkIdADomainIsAbleToUse() == true) {
+		if (account.checkIfAUserIsAbleToUse() && account.checkIdADomainIsAbleToUse()) {
 			return true;
-		} else
+		} else {
 			return false;
+		}
 	}
 
 	public boolean verifyPasswordExpiration() {
