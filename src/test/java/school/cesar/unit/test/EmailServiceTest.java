@@ -14,7 +14,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -25,6 +24,9 @@ import school.cesar.unit.interfac.EmailService;
 import school.cesar.unit.service.EmailAccount;
 import school.cesar.unit.service.EmailClient;
 
+/*
+ * @author Diego Furtado
+ * */
 public class EmailServiceTest {
 
 	private EmailClient emailClient;

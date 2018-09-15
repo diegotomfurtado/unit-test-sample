@@ -4,6 +4,9 @@ import java.time.Instant;
 
 import school.cesar.unit.service.EmailAccount;
 
+/*
+ * @author Diego Furtado
+ * */
 public class EmailAccountBuilder {
 
 	private String user = "Diego.Furtado";

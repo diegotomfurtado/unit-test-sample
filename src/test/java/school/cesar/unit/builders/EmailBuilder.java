@@ -5,6 +5,9 @@ import java.util.Collection;
 
 import school.cesar.unit.entidade.Email;
 
+/*
+ * @author Diego Furtado
+ * */
 public class EmailBuilder {
 
 	private Instant creationDate;

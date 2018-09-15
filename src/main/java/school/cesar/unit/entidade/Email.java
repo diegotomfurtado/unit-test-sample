@@ -3,6 +3,9 @@ package school.cesar.unit.entidade;
 import java.time.Instant;
 import java.util.Collection;
 
+/*
+ * @author Diego Furtado
+ * */
 public class Email {
 
 	private Instant creationDate;

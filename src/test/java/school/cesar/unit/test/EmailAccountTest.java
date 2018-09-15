@@ -13,6 +13,9 @@ import school.cesar.unit.builders.EmailAccountBuilder;
 import school.cesar.unit.service.EmailAccount;
 import school.cesar.unit.service.EmailClient;
 
+/*
+ * @author Diego Furtado
+ * */
 public class EmailAccountTest {
 
 	EmailAccount emailAccount;

@@ -5,6 +5,9 @@ import java.util.Collection;
 import school.cesar.unit.entidade.Email;
 import school.cesar.unit.service.EmailAccount;
 
+/*
+ * @author Diego Furtado
+ * */
 public interface EmailService {
 
 	boolean sendEmail(Email email);

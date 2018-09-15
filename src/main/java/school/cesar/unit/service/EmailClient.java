@@ -6,6 +6,9 @@ import java.util.Collection;
 import school.cesar.unit.entidade.Email;
 import school.cesar.unit.interfac.EmailService;
 
+/*
+ * @author Diego Furtado
+ * */
 public class EmailClient extends Email implements EmailService {
 
 	Collection<EmailAccount> accounts;

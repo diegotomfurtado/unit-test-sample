@@ -3,6 +3,9 @@ package school.cesar.unit.service;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 
+/*
+ * @author Diego Furtado
+ * */
 public class EmailAccount {
 
 	private String user;

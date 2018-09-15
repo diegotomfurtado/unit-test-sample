@@ -13,7 +13,9 @@ import org.junit.jupiter.api.Test;
 
 import school.cesar.unit.entidade.Email;
 import school.cesar.unit.service.EmailClient;
-
+/*
+ * @author Diego Furtado
+ * */
 public class EmailIsValidAdressTest {
 
 	private EmailClient emailClient;
@@ -38,42 +40,42 @@ public class EmailIsValidAdressTest {
 	}
 
 	@Test
-	public void isValidAdress_contaisDot_True() {
+	public void isValidUserAddress_containsDot_True() {
 
 		emailClient = new EmailClient();
 		assertTrue(emailClient.isValidAddress(".diego.furtado.@gmail.com"));
 	}
 
 	@Test
-	public void isValidAdress_contaisUnderline_True() {
+	public void isValidUserAddress_containsUnderline_True() {
 
 		emailClient = new EmailClient();
 		assertTrue(emailClient.isValidAddress("_diego_furtado_@gmail.com"));
 	}
 
 	@Test
-	public void isValidAdress_contaisTrace_True() {
+	public void isValidUserAdress_containsTrace_True() {
 
 		emailClient = new EmailClient();
 		assertTrue(emailClient.isValidAddress("-diego-furtado-@gmail.com"));
 	}
 
 	@Test
-	public void isValidAdress_containsMixCharacters_True() {
+	public void isValidUserAddress_containsMixCharacters_True() {
 
 		emailClient = new EmailClient();
 		assertTrue(emailClient.isValidAddress("-diego.furtado_@gmail.com"));
 	}
 
 	@Test
-	public void isValidAdress_contaisAlphanumericsNumbersSpecialCharacters_True() {
+	public void isValidUserAddress_containsAlphanumericsNumbersSpecialCharacters_True() {
 
 		emailClient = new EmailClient();
 		assertTrue(emailClient.isValidAddress("-12diego.furtado32_@gmail.com"));
 	}
 
 	@Test
-	public void isValidAdress_withoutUser_False() {
+	public void isValidUserAddress_withoutUser_False() {
 
 		emailClient = new EmailClient();
 		assertFalse(emailClient.isValidAddress("@gmail.com"));
@@ -83,12 +85,11 @@ public class EmailIsValidAdressTest {
 	public void isValidDomain_withoutDomain_Exception() {
 
 		emailClient = new EmailClient();
-
-		assertThrows(ArrayIndexOutOfBoundsException.class, () -> { emailClient.isValidAddress("diego_furtado@");	});
+		assertThrows(ArrayIndexOutOfBoundsException.class, () -> { emailClient.isValidAddress("diego_furtado@"); });
 	}
 
 	@Test
-	public void isvalidDomain_dobleSequenceDotInto_False() {
+	public void isvalidDomain_dobleSequenceDot_False() {
 
 		emailClient = new EmailClient();
 		assertFalse(emailClient.isValidAddress("diego_furtado@gmail..com"));
@@ -116,29 +117,22 @@ public class EmailIsValidAdressTest {
 	}
 	
 	@Test
-	public void isValidEmail_CreationDate_False() {
+	public void isValidEmail_CreationEmptyDate_False() {
 
 		email.setCreationDate(null);
 		assertFalse(emailClient.isValidEmail(email));
 	}
 
 	@Test
-	public void isValidEmail_EmptyCreationDate_False() {
-		
-		email.setCreationDate(null);
-		assertFalse(emailClient.isValidEmail(email));
-	}
-
-	@Test
-	public void isValidEmail_InvalidToAddress_True() {
+	public void isValidEmail_InvalidListToAddress_True() {
 
 		List<String> targetInvalidEmails = Arrays.asList(
 				"habemus-@email.com", 
 				"mamu$te@email.com",	
 				"email.ok@email.com"
 				);
+		
 		email.setTo(targetInvalidEmails);
-
 		assertTrue(emailClient.isValidEmail(email));
 	}
 
