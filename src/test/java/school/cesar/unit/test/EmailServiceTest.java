@@ -78,7 +78,7 @@ public class EmailServiceTest {
 	}
 
 	@Test
-	public void createAccount_notSuccess() {
+	public void createAccount_isNotSuccess_false() {
 
 		emailAccount = emailAccountBuilder.setPassword("123").build();
 		emailAccount = emailAccountBuilder.setPassword("12345").build();
@@ -86,7 +86,7 @@ public class EmailServiceTest {
 	}
 
 	@Test
-	public void createAccount_success() {
+	public void createAccount_success_true() {
 
 		emailAccount = emailAccountBuilder.setPassword("1234567").build();
 		emailAccount = emailAccountBuilder.setPassword("1234567890").build();
@@ -94,7 +94,7 @@ public class EmailServiceTest {
 	}
 	
 	@Test
-	public void emailAccountList_shouldBeCreateAList() {
+	public void emailAccountList_shouldBeCreateAList_true() {
 
 		EmailAccount acc = emailAccountBuilder
 			.setUser("sample1")
@@ -110,7 +110,7 @@ public class EmailServiceTest {
 	}
 	
 	@Test
-	public void emailAccountList_shouldNotBeValid_wrongLenghtPassword() {
+	public void emailAccountList_shouldNotBeValidByRrongLenghtPassword_Exception() {
 
 		EmailAccount acc = emailAccountBuilder
 			.setUser("sample1")
@@ -124,7 +124,7 @@ public class EmailServiceTest {
 	}
 
 	@Test
-	public void emailAccountList_sendertWithoutDeliveryList_shouldBeReturnZero() {
+	public void emailAccountList_sendertWithoutDeliveryList_shouldBeReturnZero_True() {
 		
 		EmailAccount acc = emailAccountBuilder
 				.setUser("UserWithoutList")
@@ -140,7 +140,7 @@ public class EmailServiceTest {
 	}
 
 	@Test
-	public void emailAccountList_shouldNotBeValid_emptyList() {
+	public void emailAccountList_EmptyList_Exception() {
 
 		EmailAccount acc = emailAccountBuilder
 			.setUser("UserWithoutList")
@@ -154,7 +154,7 @@ public class EmailServiceTest {
 	}
 	
 	@Test
-	public void sendEmail_Sucess() {
+	public void sendEmail_isValidEmail_True() {
 		
 		Email acc2 = emailBuilder
 				.setFrom("Diego.Furtado@gmail.com")
@@ -166,12 +166,12 @@ public class EmailServiceTest {
 				.setCreationDate(Instant.now())
 				.build();
 			
-		Assertions.assertTrue(emailClient.sendEmail(acc2));
+		assertTrue(emailClient.sendEmail(acc2));
 		
 	}
 	
 	@Test
-	public void sendEmail_noSucess() {
+	public void sendEmail_isValidEmail_Exception() {
 		
 		Instant instantNow = Instant.now();
 		Instant instant89DaysAgo = instantNow.plus(-91, ChronoUnit.DAYS);

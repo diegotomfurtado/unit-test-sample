@@ -17,7 +17,7 @@ public class EmailClient extends Email implements EmailService {
 		this.emailService = emailService;
 	}
 
-	public boolean isValidAdress(String emailAddress) {
+	public boolean isValidAddress(String emailAddress) {
 
 		boolean returnAdressInformation = false;
 		String[] returnFromValidAdress = emailAddress.split("@");
@@ -49,14 +49,14 @@ public class EmailClient extends Email implements EmailService {
 	}
 
 	private boolean validateFromMail(Email email) {
-		return isValidAdress(email.getFrom());
+		return isValidAddress(email.getFrom());
 	}
 
 	private boolean validateToMails(Email email) {
 
 		boolean validTos = false;
 		for (String toMailAdress : email.getTo()) {
-			validTos = validTos || isValidAdress(toMailAdress);
+			validTos = validTos || isValidAddress(toMailAdress);
 		}
 		return validTos;
 
@@ -66,7 +66,7 @@ public class EmailClient extends Email implements EmailService {
 
 		boolean validCcs = false;
 		for (String ccMailAdress : email.getCc()) {
-			validCcs = validCcs || isValidAdress(ccMailAdress);
+			validCcs = validCcs || isValidAddress(ccMailAdress);
 		}
 		return validCcs;
 
@@ -76,7 +76,7 @@ public class EmailClient extends Email implements EmailService {
 
 		boolean validBccs = false;
 		for (String bccMailAdress : email.getBcc()) {
-			validBccs = validBccs || isValidAdress(bccMailAdress);
+			validBccs = validBccs || isValidAddress(bccMailAdress);
 		}
 		return validBccs;
 	}

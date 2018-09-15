@@ -32,7 +32,7 @@ public class EmailAccountTest {
 	}
 
 	@Test
-	public void verifyPasswordExpiration_89days_False_Builder() {
+	public void isPasswordExpiration_89days_False() {
 
 		Instant instant89DaysAgo = instantNow.plus(DAYS_89, ChronoUnit.DAYS);
 
@@ -41,7 +41,7 @@ public class EmailAccountTest {
 	}
 
 	@Test
-	public void verifyPasswordExpiration_90days_False_Builder() {
+	public void isPasswordExpiration_after90days_False() {
 
 		Instant instant90DaysAgo = instantNow.plus(DAYS_90, ChronoUnit.DAYS);
 
@@ -50,7 +50,7 @@ public class EmailAccountTest {
 	}
 
 	@Test
-	public void verifyPasswordExpiration_91days_True_Builder() {
+	public void isPasswordExpiration_after91days_True() {
 
 		Instant instant91DaysAgo = instantNow.plus(DAYS_91, ChronoUnit.DAYS);
 

@@ -38,92 +38,99 @@ public class EmailIsValidAdressTest {
 	}
 
 	@Test
-	public void isValidAdressWithDot() {
+	public void isValidAdress_contaisDot_True() {
 
 		emailClient = new EmailClient();
-		assertTrue(emailClient.isValidAdress(".diego.furtado.@gmail.com"));
+		assertTrue(emailClient.isValidAddress(".diego.furtado.@gmail.com"));
 	}
 
 	@Test
-	public void isValidAdressWithUnderline() {
+	public void isValidAdress_contaisUnderline_True() {
 
 		emailClient = new EmailClient();
-		assertTrue(emailClient.isValidAdress("_diego_furtado_@gmail.com"));
+		assertTrue(emailClient.isValidAddress("_diego_furtado_@gmail.com"));
 	}
 
 	@Test
-	public void isValidAdressWithTrace() {
+	public void isValidAdress_contaisTrace_True() {
 
 		emailClient = new EmailClient();
-		assertTrue(emailClient.isValidAdress("-diego-furtado-@gmail.com"));
+		assertTrue(emailClient.isValidAddress("-diego-furtado-@gmail.com"));
 	}
 
 	@Test
-	public void isValidAdressWithMixCharacters() {
+	public void isValidAdress_containsMixCharacters_True() {
 
 		emailClient = new EmailClient();
-		assertTrue(emailClient.isValidAdress("-diego.furtado_@gmail.com"));
+		assertTrue(emailClient.isValidAddress("-diego.furtado_@gmail.com"));
 	}
 
 	@Test
-	public void isValidAdressWithAlphanumerics_Numbers_SpecialCharacters() {
+	public void isValidAdress_contaisAlphanumericsNumbersSpecialCharacters_True() {
 
 		emailClient = new EmailClient();
-		assertTrue(emailClient.isValidAdress("-12diego.furtado32_@gmail.com"));
+		assertTrue(emailClient.isValidAddress("-12diego.furtado32_@gmail.com"));
 	}
 
 	@Test
-	public void isNotValidAdressWithoutUser() {
+	public void isValidAdress_withoutUser_False() {
 
 		emailClient = new EmailClient();
-		assertFalse(emailClient.isValidAdress("@gmail.com"));
+		assertFalse(emailClient.isValidAddress("@gmail.com"));
 	}
 
 	@Test
-	public void isNotValidAdressWithoutDomain() {
+	public void isValidDomain_withoutDomain_Exception() {
 
 		emailClient = new EmailClient();
 
-		assertThrows(ArrayIndexOutOfBoundsException.class, () -> { emailClient.isValidAdress("diego_furtado@");	});
+		assertThrows(ArrayIndexOutOfBoundsException.class, () -> { emailClient.isValidAddress("diego_furtado@");	});
 	}
 
 	@Test
-	public void validateDomain_dobleSequenceDot() {
+	public void isvalidDomain_dobleSequenceDotInto_False() {
 
 		emailClient = new EmailClient();
-		assertFalse(emailClient.isValidAdress("diego_furtado@gmail..com"));
+		assertFalse(emailClient.isValidAddress("diego_furtado@gmail..com"));
 	}
 
 	@Test
-	public void validateDomain_dobleDot() {
+	public void isValidDomain_dobleDotWithouSequence_True() {
 
 		emailClient = new EmailClient();
-		assertTrue(emailClient.isValidAdress("diego_furtado@gmail.com.br"));
+		assertTrue(emailClient.isValidAddress("diego_furtado@gmail.com.br"));
 	}
 	
 	@Test
-	public void validateDomain_numbersAndDotAndLetters() {
+	public void isvalidDomain_numbersAndDotAndLetters_True() {
 
 		emailClient = new EmailClient();
-		assertTrue(emailClient.isValidAdress("diego_furtado@gmail2.com.br"));
+		assertTrue(emailClient.isValidAddress("diego_furtado@gmail2.com.br"));
 	}
 
 	@Test
-	public void isNotValidEmailByEmptyCreationDate() {
+	public void isValidEmail_CreationDate_True() {
+
+		email.setCreationDate(Instant.now());
+		assertTrue(emailClient.isValidEmail(email));
+	}
+	
+	@Test
+	public void isValidEmail_CreationDate_False() {
 
 		email.setCreationDate(null);
 		assertFalse(emailClient.isValidEmail(email));
 	}
 
 	@Test
-	public void isValidEmailByCreationDate() {
-
-		email.setCreationDate(Instant.now());
-		assertTrue(emailClient.isValidEmail(email));
+	public void isValidEmail_EmptyCreationDate_False() {
+		
+		email.setCreationDate(null);
+		assertFalse(emailClient.isValidEmail(email));
 	}
 
 	@Test
-	public void isValidEmailByInvalidToAddress() {
+	public void isValidEmail_InvalidToAddress_True() {
 
 		List<String> targetInvalidEmails = Arrays.asList(
 				"habemus-@email.com", 
@@ -136,14 +143,14 @@ public class EmailIsValidAdressTest {
 	}
 
 	@Test
-	void isNotValidEmailByInvalidFromAddress() {
+	void isValidEmail_InvalidFromAddress_False() {
 
 		email.setFrom("des$c*onhecido@nada.com");
 		assertFalse(emailClient.isValidEmail(email));
 	}
 
 	@Test
-	public void validEmailSuccess() {
+	public void isValidEmail_True() {
 
 		assertTrue(emailClient.isValidEmail(email));
 	}
