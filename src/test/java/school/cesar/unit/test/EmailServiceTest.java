@@ -101,7 +101,9 @@ public class EmailServiceTest {
 		emailAccount = emailAccountBuilder.setUser("diego$furtado").build();
 		assertFalse(emailClient.createAccount(emailAccount));
 	}
-	
+
+	// TODO [mmcj]: emailList tests are tightly coupled to EmailAccount.verifyPasswordExpiration
+
 	@Test
 	public void emailAccountList_shouldBeCreateAList_true() {
 
@@ -161,7 +163,9 @@ public class EmailServiceTest {
 		assertThrows(RuntimeException.class, () -> { emailClient.emailList(acc); });
 		
 	}
-	
+
+	// TODO [mmcj]: sendEmail tests are tightly coupled to isValidEmail
+
 	@Test
 	public void sendEmail_isValidEmail_True() {
 		

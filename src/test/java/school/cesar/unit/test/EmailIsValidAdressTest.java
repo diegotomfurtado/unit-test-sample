@@ -39,6 +39,8 @@ public class EmailIsValidAdressTest {
 
 	}
 
+	// TODO [mmcj]: isValidAddress tests are tightly coupled to EmailAccount methods
+
 	@Test
 	public void isValidUserAddress_containsDot_True() {
 
@@ -85,6 +87,7 @@ public class EmailIsValidAdressTest {
 	public void isValidDomain_withoutDomain_Exception() {
 
 		emailClient = new EmailClient();
+		// TODO [mmcj]: isValidAddress should not rise an exception
 		assertThrows(ArrayIndexOutOfBoundsException.class, () -> { emailClient.isValidAddress("diego_furtado@"); });
 	}
 
@@ -108,6 +111,8 @@ public class EmailIsValidAdressTest {
 		emailClient = new EmailClient();
 		assertTrue(emailClient.isValidAddress("diego_furtado@gmail2.com.br"));
 	}
+
+	// TODO [mmcj]: isValidEmail tests are tightly coupled to isValidAddress
 
 	@Test
 	public void isValidEmail_CreationDate_True() {
