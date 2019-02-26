@@ -1,8 +1,8 @@
 # unit-test-sample
 
-## Detalhamento da implentação
-1. Criar classe `Email` que contenha
-    1. Atributos:
+## Implantation Detailing
+1. Create a class `Email` that constains
+    1. Attributes:
         * Instant creationDate
         * String from
         * Collection\<String> to
@@ -17,17 +17,17 @@ public class Email {
 }
 ```
 
-2. Criar Classe `EmailAccount` que contenha:
-    1. Atributos:
+2. Create class `EmailAccount` that contains:
+    1. Attributes:
         * String user
-            * Apenas Letras, números e os seguintes caracteres: ponto (.), linha (_) e traço (-) 
+            * Only letters, numbers and the following characters: dot (.), underline (_) e trace (-) 
         * String domain
-            * Letras, números e o caractere ponto (.), não podendo ele estar no início, final ou seguido de outro ponto
+            * letters, numbers and the dot character (.), not being at the beginning, end or followed by another point
         * String password
         * Instant lastPasswordUpdate
-    2. Métodos
+    2. Methods
         * boolean verifyPasswordExpiration
-            * O password é considerado expirado se o lastPasswordUpdate for maior que 90 dias da data atual do sistema
+            * The password is considered expired if lastPasswordUpdate is greater than 90 days from the current system date
 ```java
 
 public class EmailAccount {
@@ -35,7 +35,7 @@ public class EmailAccount {
 }
 ```
 
-3. Criar Interface `EmailService` com as seguintes assinaturas:
+3. Create Interface `EmailService` with the following signatures:
     *	boolean sendEmail(Email email)
     *	Collection\<Email> emailList(EmailAccount account)  
 ```java
@@ -51,30 +51,30 @@ public interface EmailService {
 }
 ```
 
-4. Criar classe `EmailClient` que possua
-    1. Atributos
+4. Create class `EmailClient` which has:
+    1. Attributes
         * Collection\<EmailAccount> accounts
         * EmailService emailService
-            * Armazena uma instancia de um objeto que implementa a interface `EmailService`
-    2. Métodos
+            * Stores an instance of an object that implements the interface `EmailService`
+    2. Methods
         * void setEmailService(**EmailService emailService**)
         * boolean isValidAddress(**String emailAddress**)
-            * Um endereço é considerado válido se possuir usuário válido, seguido pelo caracterae arroba (@) e posteriormente um domínio válido.
+            * An address is considered valid if it has a valid user, followed by the character at (@) and then a valid domain.
         * boolean isValidEmail(**Email email**)
-            * É considerado válido o email que possuir um creationDate, um destinatário (to) válido, ao menos um emissor (from) válido e os demais e-mails também sejam válidos
+            * It is considered valid e-mail that has a creationDate, a valid recipient, at least one valid from, and the other e-mails are also valid.
         * Collection\<Email> emailList(EmailAccount account)
-            * Antes de obter emails verificar se password é válido **(password é valido se maior que 6 caracteres e lastPasswordUpdate menor ou igual a 90 dias)**
-            * Se password inválido levantar uma exeção do tipo `RuntimeException` 
-            * Chamar `emailService.emailList(account)`
+            * Before getting emails check if password is valid **(password is valid if greater than 6 characters and lastPasswordUpdate less than or equal to 90 days)**
+            * If the invalid password raises an exception of type `RuntimeException` 
+            * Call `emailService.emailList(account)`
         * void sendEmail(**Email email**)
-            * verifica se o email é válido (utilizando o método isValidEmail)
-            * chamar emailService.sendEmail(Email email)
-            * Se retorno `false` levantar uma exeção do tipo `RuntimeException`
+            * verifies that the email is valid (using the isValidEmail method)
+            * call the emailService.sendEmail(Email email)
+            * if return `false` throw a exception `RuntimeException`
         * boolean createAccount(EmailAccount account)
-            * verifica se o usuário e o dominio são válidos
-            * verifica se o password é maior que 6 caracteres
-            * adiciona data atual ao `lastPasswordUpdate`
-            * adcionar objeto a coleção `accounts`
+            * verifies that the user and domain are valid
+            * checks if the password is longer than 6 characters
+            * add actual data on `lastPasswordUpdate`
+            * add object to collection `accounts`
             
 ```java
 public class EmailClient {
