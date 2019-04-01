@@ -1,3 +1,6 @@
+import jenkins.model.*
+jenkins = Jenkins.instance
+
 def username = 'Jenkins'
 node {
 	 stage('Build') {
@@ -5,7 +8,6 @@ node {
 	 	 echo "Hello Mr. ${username}"
 		 deleteDir()
 		 checkout scm
-		 sh 'cat README.md'
 	 }
 	 stage('Test') {
 		 echo
