@@ -26,7 +26,6 @@ node {
 		 }
 	} 
 	catch (exc) {
-		onError()
 		throw exc
 	}
 } 
