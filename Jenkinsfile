@@ -24,8 +24,7 @@ node {
 		 stage('Deploy') {
 			 echo 'Deploying....'
 		 }
-	} 
-	catch (exc) {
+	}catch (exc) {
 		throw exc
 	}
 } 
