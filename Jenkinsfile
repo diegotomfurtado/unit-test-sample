@@ -19,7 +19,7 @@ node {
 		 stage('Test') {
 			 echo 'Testing..'
 			 try {
-			 	mvn test
+			 	mvn 'test'
 				//gradlew 'build -x test -x testIntegration'
 				//gradlew 'build -x test -x testIntegration -x functionalTest'
 			} catch (exc) {
