@@ -1,1 +1,19 @@
 /target/
+# Ignore auto-generated files
+**.project
+**.classpath
+**.class
+**.settings/
+**.gradle/
+**/reports/
+**/bin/
+**/build/
+**/tempDeployFiles/
+**/node_modules/
+
+**.metadata/
+**./svn/
+**/dist/
+**/classes/
+
+/build/

@@ -1,7 +1,0 @@
-jenkins: 
-  image: 'jenkins/jenkins:latest'
-  ports: 
-  - '8082:8080'
-  - '50000:50000'
-  volumes: 
-  - '~/unit-test-sample/jenkins:/var/jenkins_home'
