@@ -1,3 +1,8 @@
+
+@Field final gitRepository = 'diegotomfurtado/unit-test-sample'
+@Field final projectName = "DevOps"
+@Field final projectKey  = "unit-test-sample"
+
 def username = 'Jenkins'
 node {
 	 stage('Build') {
@@ -11,7 +16,6 @@ node {
 		 echo 'Testing..'
 	 }
 	 stage('Deploy') {
-		 echo 
-		'Deploying....'
+		 echo 'Deploying....'
 	 }
 } 
