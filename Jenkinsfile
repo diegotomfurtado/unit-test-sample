@@ -5,8 +5,6 @@ node {
 	 stage('Build') {
 		 echo 'Building..'
 	 	 echo "Hello Mr. ${username}"
-		 deleteDir()
-		 checkout scm
 	 }
 	 stage('Test') {
 		 echo
