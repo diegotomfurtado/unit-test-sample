@@ -13,12 +13,18 @@ node {
 
 			deleteDir()
 			checkout scm
-			sh 'cat README.md'
 
 		 }
 
 		 stage('Test') {
 			 echo 'Testing..'
+			 try {
+			 	mvn test
+				//gradlew 'build -x test -x testIntegration'
+				//gradlew 'build -x test -x testIntegration -x functionalTest'
+			} catch (exc) {
+				throw exc
+			}
 		 }
 
 		 stage('Deploy') {
