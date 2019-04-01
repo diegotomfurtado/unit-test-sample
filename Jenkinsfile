@@ -1,14 +1,18 @@
 def username = 'Jenkins'
 
 node {
- 	stage('Build') {
+ stage('Build') {
 	echo 'Building..'
 	echo "Hello Mr. ${username}"
  }
-stage('Test') {
+ stage('Checkout') {
+	checkout scm
+ }
+
+ stage('Test') {
 	echo 'Testing..'
-}
+ }
  stage('Deploy') {
- echo 'Deploying....'
+	echo 'Deploying....'
  }
 }
