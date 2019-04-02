@@ -19,7 +19,14 @@ node {
 		 stage('Test') {
 			 echo 'Testing..'
 			 try {
-			      sh "mvn clean install"
+			      withMaven(
+			            maven: 'M3',
+			            mavenSettingsConfig: 'maven-settings-for-gameoflife',
+			            mavenLocalRepo: '.repository') {
+
+			        // Run the maven build
+			        sh "mvn clean install"
+			    }
 			
 				//gradlew 'build -x test -x testIntegration'
 				//gradlew 'build -x test -x testIntegration -x functionalTest'
