@@ -19,7 +19,7 @@ node {
 		 stage('Test') {
 			 echo 'Testing..'
 			 try {
-			      maven clean install
+			      sh "mvn clean install"
 			
 				//gradlew 'build -x test -x testIntegration'
 				//gradlew 'build -x test -x testIntegration -x functionalTest'
